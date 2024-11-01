@@ -1,7 +1,8 @@
-/* Lab 1 String and int 
-Skapar en variabel name med ditt namn 
-Skapar en int age med din ålder.
-Skriver sedan ut värdena i en printf "Your name is Name and you are AGE years old."
+/* 
+String & int safe input handling and error messaging for invalid entries.
+C program that validates user input for names and age, 
+ensuring names are non-empty and free of digits, 
+while ages are positive integers. 
 */
 
 #include <stdio.h>
@@ -14,18 +15,23 @@ int main() {
     
     // Validate first name
     validateNameInput(firstName, 99, "Enter your first name", 
-                      "Error: You entered an %s or a name with only spaces. Please try again.\n");
+                      "Invalid: You entered %s. Please try again.\n");
 
     // Validate last name
     validateNameInput(lastName, 99, "Enter your last name", 
-                      "Error: You entered an %s or a last name with only spaces. Please try again.\n");
+                      "Invalid: You entered %s. Please try again.\n");
 
     // Validate age
     int age = validateAgeInput();
 
     // Output the collected data
-    printf("Full Name: %s %s\n", firstName, lastName);
-    printf("Age: %d\n", age);
+    printf("\nYour Full Name: %s, %s\n", lastName, firstName);
+    printf("Your Age: %d\n", age);
+
+    // "Special" message for users older than 50
+    if (age > 50) {
+        printf("\nWhoa! At %d, you must have seen so much in life. You must be a sage! :)\n", age);
+    }
 
     return 0;
 }

@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 int validateAgeInput() {
     char ageInput[10]; // Create an array for the age input
@@ -9,39 +10,40 @@ int validateAgeInput() {
     // Loop for age input
     while (1) {
         // Prompt the user to enter their age
-        printf("Enter your age (whole number, no decimals, must be > 0): ");
-        fgets(ageInput, sizeof(ageInput), stdin); // Read the age input
+        printf("\nEnter your age : ");
+        
+        // Check if fgets returns NULL (EOF or error)
+        if (fgets(ageInput, sizeof(ageInput), stdin) == NULL) {
+            printf("\nError: Unexpected end of input (EOF detected). Exiting input.\n");
+            return -1; // Use -1 or a specific return value to indicate EOF
+        }
 
         // Remove the newline character at the end if it exists
         ageInput[strcspn(ageInput, "\n")] = 0;
 
         // Check if the age input is empty
         if (strlen(ageInput) == 0) {
-            printf("Error: Age cannot be empty. Please try again.\n");
+            printf("Invalid: Age cannot be empty. Please try again.\n");
             continue; 
         }
 
-        // Check if the input contains only digits (0-9)
-        int isValid = 1; // Flag for valid age input
+        // Validate that input is numeric
+        int isValid = 1;
         for (int i = 0; ageInput[i] != '\0'; i++) {
-            // Check if character is not between '0' and '9'
-            if (ageInput[i] < '0' || ageInput[i] > '9') { 
-                isValid = 0; // Mark as invalid
-                break; 
+            if (!isdigit(ageInput[i])) { 
+                isValid = 0;
+                break;
             }
         }
 
         if (!isValid) {
-            printf("Error: Age must be a whole number (digits only). Please try again.\n");
+            printf("Invalid: Age must be a whole number (digits only). Please try again.\n");
             continue; 
         }
 
-        // Convert age input to an integer
         age = atoi(ageInput);
-
-        // Check if age is greater than 0
         if (age <= 0) {
-            printf("Error: Age must be greater than zero. Please try again.\n");
+            printf("Invalid: Age must be greater than zero. Please try again.\n");
             continue; 
         }
 
