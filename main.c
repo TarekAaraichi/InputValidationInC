@@ -1,6 +1,6 @@
 /* 
 String & int safe input handling and error messaging for invalid entries.
-C program that validates user input for names and age, 
+It validates user input for names and age, 
 ensuring names are non-empty and free of digits, 
 while ages are positive integers. 
 */
@@ -10,16 +10,17 @@ while ages are positive integers.
 #include "age_validation.h"
 
 int main() {
-    char firstName[100];
-    char lastName[100];
+    char firstName[50];
+    char lastName[50];
     
     // Validate first name
-    validateNameInput(firstName, 99, "Enter your first name", 
-                      "Invalid: You entered %s. Please try again.\n");
+    printf("\n");
+    validateNameInput(firstName, 49, "Enter your first name", 
+                      "You entered %s. Please try again!\n");
 
     // Validate last name
-    validateNameInput(lastName, 99, "Enter your last name", 
-                      "Invalid: You entered %s. Please try again.\n");
+    validateNameInput(lastName, 49, "Enter your last name", 
+                      "You entered %s. Please try again!\n");
 
     // Validate age
     int age = validateAgeInput();
